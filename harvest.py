@@ -14,7 +14,7 @@ class MelonType(object):
     name = None
     pairings = []
 
-    def __init__(self, code, first_harvest, color, is_seedless, is_bestseller, 
+    def __init__(self, code, first_harvest, color, is_seedless, is_bestseller,
                  name):
         """Initialize a melon."""
 
@@ -101,16 +101,94 @@ class Melon(object):
     """A melon in a melon harvest."""
 
     # Fill in the rest
+    melon_type = None
+    shape_rating = None
+    color_rating = None
+    field = None
+    harvester = None
     # Needs __init__ and is_sellable methods
+
+    def __init__(self, melon_type, shape_rating, color_rating, field, harvester):
+        """Initialize a melon."""
+
+        self.melon_type = melon_type
+        self.shape_rating = shape_rating
+        self.color_rating = color_rating
+        self.field = field
+        self.harvester = harvester
+
+    def is_sellable(melon):
+        """Checks if a melon is sellable. Returns a boolean."""
+
+        if melon.field != 3:
+            if melon.shape_rating > 5 and melon.color_rating > 5:
+                return True
+
+        else:
+            return False
 
 
 def make_melons(melon_types):
     """Returns a list of Melon objects."""
 
+    all_melon_types = []
+
+    melon1 = Melon(melon_types['yw'], 8, 7, 2, 'Sheila')
+    all_melon_types.append(melon1)
+
+    melon2 = Melon(melon_types['yw'], 3, 4, 2, 'Sheila')
+    all_melon_types.append(melon2)
+
+    melon3 = Melon(melon_types['yw'], 9, 8, 3, 'Sheila')
+    all_melon_types.append(melon3)
+
+    melon4 = Melon(melon_types['cas'], 10, 6, 35, 'Sheila')
+    all_melon_types.append(melon4)
+
+    melon5 = Melon(melon_types['cren'], 8, 9, 35, 'Michael')
+    all_melon_types.append(melon5)
+
+    melon6 = Melon(melon_types['cren'], 8, 2, 35, 'Michael')
+    all_melon_types.append(melon6)
+
+    melon7 = Melon(melon_types['cren'], 2, 3, 4, 'Michael')
+    all_melon_types.append(melon7)
+
+    melon8 = Melon(melon_types['cren'], 6, 7, 4, 'Michael')
+    all_melon_types.append(melon8)
+
+    melon9 = Melon(melon_types['yw'], 7, 10, 3, 'Sheila')
+    all_melon_types.append(melon9)
+
     # Fill in the rest
+
+    return all_melon_types
 
 
 def get_sellability_report(melons):
     """Given a list of melon object, prints whether each one is sellable."""
 
+    melon_num = 1
     # Fill in the rest
+    for melon in melons:
+        print """Melon {num}
+        - Melon type: {melon_type}
+        - Shape rating: {shape_rating}
+        - Color rating: {color_rating}
+        - Harvested from field {field_num}
+        - Harvested by {harvester}
+        """.format(num=melon_num, melon_type=melon.melon_type.code,
+                   shape_rating=melon.shape_rating,
+                   color_rating=melon.color_rating, field_num=melon.field,
+                   harvester=melon.harvester)
+        melon_num += 1
+
+        if melon.is_sellable():
+            print "Ready to sell.\n"
+        else:
+            print "DO NOT SELL, NOT SAFE FOR CONSUMPTION.\n"
+
+melon_types = make_melon_types()
+melon_types = make_melon_type_lookup(melon_types)
+melons = make_melons(melon_types)
+melon_report = get_sellability_report(melons)
