@@ -186,7 +186,7 @@ def get_sellability_report(melons):
         if melon.is_sellable():
             print "Ready to sell.\n"
         else:
-            print "DO NOT SELL, NOT SAFE FOR CONSUMPTION.\n"
+            print "DO NOT SELL.\n"
 
 melon_types = make_melon_types()
 melon_types = make_melon_type_lookup(melon_types)
